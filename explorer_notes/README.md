@@ -35,11 +35,14 @@ Once all the coordinates have been noted down, and the `button-coords.json` file
 
 The script should now be ready to use.
 
+The button at the bottom of the image below is the new_waypoint button. ![Create Waypoint screen](create_waypoint.png)
+The following image shows where each button is on the create waypoint page. ![Creating a waypoint](buttons.png)
+
 
 ## Usage
 Ensure that the game is running in windowed mode and that the game is visible on the screen.<br>
-See [this image]() to ensure that the game is in the correct position.<br>
-This is the position required for the script to be able to create waypoints.<br>
+See below to ensure that the game is in the correct position. ![Create waypoint Image](create_waypoint.png)<br>
+This is the position required for the script to be able to create waypoints and can be accessed by clicking waypoints in your inventory map.<br>
 
 
 To run the script, run the following command in the command prompt:
