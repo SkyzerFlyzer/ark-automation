@@ -1,4 +1,5 @@
 import json
+import math
 import time
 
 import pyautogui
@@ -11,8 +12,6 @@ with open('button_coords.json', 'r') as f:
 
 
 def load_island_notes() -> tuple[list, list]:
-    # with open('asa-island-pois.json', 'r') as f:
-    #     pois = json.load(f)
     pois = requests.get(
         'https://ark.wiki.gg/api.php?action=queryDataMap&format=json&pageid=72797&revid=520044&continue=0')
     pois = pois.json()
@@ -22,8 +21,8 @@ def load_island_notes() -> tuple[list, list]:
 
 
 def click_create_waypoint():
-    create_waypoint_x = button_coords['create_waypoint']['x']
-    create_waypoint_y = button_coords['create_waypoint']['y']
+    create_waypoint_x = button_coords['new_waypoint']['x']
+    create_waypoint_y = button_coords['new_waypoint']['y']
     pyautogui.moveTo(create_waypoint_x, create_waypoint_y)
     time.sleep(0.1)
     pyautogui.click()
@@ -53,8 +52,8 @@ def click_lat():
 
 
 def click_lon():
-    lon_x = button_coords['lon']['x']
-    lon_y = button_coords['lon']['y']
+    lon_x = button_coords['long']['x']
+    lon_y = button_coords['long']['y']
     pyautogui.moveTo(lon_x, lon_y)
     time.sleep(0.1)
     pyautogui.click()
@@ -72,7 +71,7 @@ def click_accept():
     time.sleep(0.2)
 
 
-def create_waypoint(x: int, y: int, name: str):
+def create_waypoint(long: int, lat: int, name: str):
     click_create_waypoint()
     # fill out the name
     click_name()
@@ -80,31 +79,24 @@ def create_waypoint(x: int, y: int, name: str):
     time.sleep(0.1)
     # fill out the latitude
     click_lat()
-    pyautogui.typewrite(str(x))
+    pyautogui.typewrite(str(lat))
     time.sleep(0.1)
     # fill out the longitude
     click_lon()
-    pyautogui.typewrite(str(y))
+    pyautogui.typewrite(str(long))
     time.sleep(0.1)
     # click accept
     click_accept()
 
 
-def create_waypoints(waypoints: list, order: list[int]) -> None:
+def create_waypoints(waypoints: list) -> None:
     for waypoint in waypoints:
-        x = waypoint[1]
-        y = waypoint[0]
-        name = waypoint[2]
-        found = False
-        for i in order:
-            if f'(ID: {i})' in name:
-                found = True
-                break
-        if not found:
-            continue
+        long = waypoint[1]
+        lat = waypoint[0]
+        name = waypoint[2]['label']
         # Remove the html span tag garbage
-        name = re.sub(r' <span.*?>', '', name)
-        create_waypoint(x, y, name)
+        name = re.sub(r' <span.*', '', name)
+        create_waypoint(long, lat, name)
 
 
 def main():
@@ -118,9 +110,17 @@ def main():
           "Please ensure that no other waypoints are on the map.")
     time.sleep(10)
     # Split the waypoints into batches of 16
-    waypoints = [waypoints[x:x + 16] for x in range(0, len(waypoints), 16)]
-    for waypoints_batch in waypoints:
-        create_waypoints(waypoints_batch, order)
+    waypoints_batch = []
+    batch_size = 15
+    batches = math.ceil(len(order) / batch_size)
+    for x in range(batches):
+        waypoints_batch.append([])
+        for i in order[x*batch_size:x*batch_size+batch_size+1]:
+            for waypoint in waypoints:
+                if f'(ID: {i})' in waypoint[2]['label']:
+                    waypoints_batch[x].append(waypoint)
+    for batch in waypoints_batch:
+        create_waypoints(batch)
         pyautogui.alert("Finished creating waypoints for this batch, Click OK to create waypoints for the next batch.")
         time.sleep(1)
     pyautogui.alert("Finished creating waypoints for all batches, Click OK to exit.")
