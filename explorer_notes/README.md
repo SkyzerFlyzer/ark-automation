@@ -59,6 +59,7 @@ Continue this process until all the waypoints have been created.<br>
 ### Note
 The script will still work if the coordinates are not set correctly and will perform clicking actions.<br>
 If you need to kill the script at any point move your mouse to the top corner of the screen.<br>
+The current button_coords.json file is set for a 4k display.<br>
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
