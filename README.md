@@ -5,6 +5,7 @@ This repository is a work in progress and as such some scripts may not be comple
 
 ## Contents
 - [Explorer Note Waypoints](explorer_notes/README.md)
+- [Auto Ini Setter](ini/README.md)
 
 
 ## Showing Co-ordinates
