@@ -22,3 +22,9 @@ def main():
     for command in commands:
         enter_command(command)
     pyautogui.alert('Done')
+
+
+if __name__ == '__main__':
+    print("Please ensure the game is focused. Starting in 5 seconds.")
+    time.sleep(5)
+    main()

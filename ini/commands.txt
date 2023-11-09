@@ -2,16 +2,12 @@ Grass.Enable 0
 r.ContactShadows 0
 r.DistanceFieldShadowing 0
 r.Lumen.Reflections.Allow 0
-r.Lumen.DiffuseIndirect.Allow 0
 r.MaterialQualityLevel 0
-r.MipMapLODBias 15
 r.Nanite.MaxPixelsPerEdge 2
 r.Shadow.CSM.MaxCascades 0
 r.Shadow.Virtual.Enable 0
 r.SkylightIntensityMultiplier 3
 r.VolumetricCloud 0
 r.VolumetricFog 0
-r.Water.SingleLayer 0
 r.Water.SingleLayer.Reflection 0
 sg.FoliageQuality 0
-wp.Runtime.HLOD 0

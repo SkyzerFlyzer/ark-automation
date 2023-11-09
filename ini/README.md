@@ -16,6 +16,15 @@ pip install -r requirements.txt
 You can add or remove commands from the `commands.txt` file to suit your needs.
 Each command should be on a new line.
 
+### Additional Settings
+Global Illumination Quality must be set to high or epic to show drop beams. <br>
+The following are optional settings which I personally don't like.
+
+`r.MipMapLODBias 15` - Potato Mode <br>
+`r.Water.SingleLayer 0` - No Water <br>
+`r.Lumen.DiffuseIndirect.Allow 0` - No Drop Beams <br>
+`wp.Runtime.HLOD 0` - Renders fewer trees and rocks, can cause lag spikes
+
 ## Usage
 1. Log into the game so that you are spawned into a map.
 2. Run the script.
